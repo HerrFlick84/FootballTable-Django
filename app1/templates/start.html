@@ -1,0 +1,46 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<html>
+<head>
+    <link rel= 'stylesheet' href="{% static 'style.css' %}"/>
+    <title>Football results</title>
+    
+ </head>
+  
+<body>
+    {% for coumtry in standings %}
+    <div  >
+    
+            <p>{{ coumtry.name }}</p>
+            <table float = "left">
+                <th></th>
+                <th>Team</th>
+                <th>Points</th>
+                <th>Wins</th>
+                <th>Draws</th>
+                <th>Loses</th>
+                {% for comp in coumtry.data %}
+                
+                <tr>
+                    <td>
+                        <div > 
+                            
+                                <img src={{comp.team.crestUrl}}   
+                                height="30px"
+                                width="30px" /> 
+                        </div>
+                    </td> 
+                    <td>{{comp.team.name}} </td>
+                    <td>{{comp.points}}</td>
+                    <td>{{comp.won}}</td>
+                    <td>{{comp.draw}}</td>
+                    <td>{{comp.lost}}</td>
+        
+                </tr>
+                {% endfor %}
+                
+            </table>
+    {% endfor%}
+</body>
+</html>

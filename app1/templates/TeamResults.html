@@ -1,0 +1,23 @@
+﻿{% load static %}
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<html>
+<head>
+    <link rel= 'stylesheet' href="{% static 'style.css' %}"/>
+    <title>Football results</title>
+    <h2>{{ standings }}</h2>
+ </head>
+<body>
+    <table>
+        {% for key, value in games.items %}
+        <tr>
+            <td>{{ value.oponent }}   </td>
+            <td>     {{ value.Score }} : {{ value.oponentScore }}</td>
+            <td>{{ value.HA }}   </td>
+        </tr>
+        {% endfor %}
+    </table>
+
+
+</body>
+</html>

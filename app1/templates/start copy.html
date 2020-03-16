@@ -1,0 +1,48 @@
+{% load static %}
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<html>
+<head>
+    <link rel= 'stylesheet' href="{% static 'style.css' %}"/>
+    <title>Football results</title>
+    <h2>{{ standings }}</h2>
+ </head>
+ home=home["standings"][0]['table']
+<body>
+    {% for country in standings %}
+    <div class="wrap" style="float: left">
+    <h2>{{ country.competition.name }}</h2>
+    <table>
+        <th></th>
+        <th>Team</th>
+        <th>Points</th>
+        <th>Wins</th>
+        <th>Draws</th>
+        <th>Loses</th>
+        {% for comp in home %}
+        
+        <tr>
+            <td>
+                <div > 
+                    
+                        <img src={{comp.team.crestUrl}}   
+                        height="30px"
+                        width="30px" /> 
+                </div>
+            </td> 
+            <td>{{comp.team.name}} </td>
+            <td>{{comp.points}}</td>
+            <td>{{comp.won}}</td>
+            <td>{{comp.draw}}</td>
+            <td>{{comp.lost}}</td>
+
+        </tr>
+        {% endfor %}
+        
+    </table>
+    {% endfor %}
+    </div>
+    
+    
+</body>
+</html>

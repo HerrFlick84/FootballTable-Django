@@ -1,0 +1,67 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <title>Django People</title>
+</head>
+<body>
+
+    <div class="container col-sm-6">
+        <ul class=" nav nav-tabs">
+            <li class="active"><a href="#Total" data-toggle="tab">Total </a></li>
+            <li><a href="#Home" data-toggle="tab">Home </a></li>
+            <li><a href="#Away" data-toggle="tab">Away </a></li>
+
+
+        </ul>
+        <div class="tab-content ">
+            <div class="tab-pane active" id="Total">
+                
+                <table class="table table-striped table-responsive-sm">
+                    <thead class="thead-light">
+                        <tr>
+                            <th style="text-align:center" width="250"> Team</th>
+                            <th style="text-align:center" width="10"> Games Played</th>
+                            <th style="text-align:center" width="3"> wins</th>
+                            <th style="text-align:center" width="3"> lost</th>
+                            <th style="text-align:center" width="3"> draws</th>
+                            <th style="text-align:center" width="5"> goals +</th>
+                            <th style="text-align:center" width="5"> goals -</th>
+                            <th style="text-align:center" width="5"> Points</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for key, value in teams.items %}
+                        <tr>
+                            <td>     {{ value.team}}</td>
+                            <td style="text-align:center">     {{ value.GamesPlayed}}</td>
+                            <td style="text-align:center">     {{ value.wins}}</td>
+                            <td style="text-align:center">     {{ value.lost}}</td>
+                            <td style="text-align:center">     {{ value.draws}}</td>
+                            <td style="text-align:center">     {{ value.goalsfor}}</td>
+                            <td style="text-align:center">     {{ value.goalsagainst}}</td>
+                            <td style="text-align:center">     {{ value.score}}</td>
+
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+               
+            </div>
+            <div class="tab-pane" id="Home">
+                <h3>Notice the gap between the content and tab after applying a background color</h3>
+            </div>
+            <div class="tab-pane" id="Away">
+                <h3>add clearfix to tab-content (see the css)</h3>
+            </div>
+        </div>
+    </div>
+    </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+</body>
+</html>

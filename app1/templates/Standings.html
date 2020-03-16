@@ -1,0 +1,50 @@
+﻿
+<!DOCTYPE html>
+<meta charset="utf-8" />
+<html>
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    
+    <title>Football results</title>
+    <h2>{{ standings }}</h2>
+</head>
+<body >
+    <div class="col-sm-6" >
+        <table class="table table-striped table-responsive-sm">
+            <thead class="thead-light">
+                <tr>
+                    <th style="text-align:center" width="250"> Team</th>
+                    <th style="text-align:center" width="10"> Games Played</th>
+                    <th style="text-align:center" width="3"> wins</th>
+                    <th style="text-align:center" width="3"> lost</th>
+                    <th style="text-align:center" width="3"> draws</th>
+                    <th style="text-align:center" width="5"> goals +</th>
+                    <th style="text-align:center" width="5"> goals -</th>
+                    <th style="text-align:center" width="5"> Points</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for key, value in teams.items %}
+                <tr>
+                    <td>     {{ value.team}}</td>
+                    <td style="text-align:center">     {{ value.GamesPlayed}}</td>
+                    <td style="text-align:center">     {{ value.wins}}</td>
+                    <td style="text-align:center">     {{ value.lost}}</td>
+                    <td style="text-align:center">     {{ value.draws}}</td>
+                    <td style="text-align:center">     {{ value.goalsfor}}</td>
+                    <td style="text-align:center">     {{ value.goalsagainst}}</td>
+                    <td style="text-align:center">     {{ value.score}}</td>
+
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-1.12.4.min.js"
+            integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ="
+            crossorigin="anonymous"></script>
+</body>
+</html>
