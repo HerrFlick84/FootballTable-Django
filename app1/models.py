@@ -3,7 +3,7 @@ class Result(models.Model):
     GameID=              models.CharField(max_length=120)#1
     CompetitionID=   models.CharField(max_length=120)#2
     CompetitionName= models.CharField(max_length=120)#3
-    Date=            models.CharField(max_length=120)#4
+    Date=            models.IntegerField()#4
     HomeTeamID=      models.CharField(max_length=120)#5
     HomeTeamName=    models.CharField(max_length=120)#6
     HomeTeamScore=   models.IntegerField()#7

@@ -7,4 +7,5 @@ urlpatterns = [path(r'',views.startpage),
                path('delall',views.delall),
                path('Standings',views.Standings),
                path('Boot',views.Boot),
+               path('Standingssingle',views.Standingssingle),
                ]

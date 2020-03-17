@@ -20,7 +20,7 @@ from (
   union all
     select AwayTeamName, AwayTeamScore, HomeTeamScore, CompetitionID,Date,HomeTeamName,AwayTeamName from app1_result
 ) a 
-where competitionID = CompetitionIDGoesHere and Date < ' DateGoesHere '
+where competitionID = CompetitionIDGoesHere and Date < DateGoesHere 
 group by team
 order by score desc;"""
         #self.defineparams(self,HT,Home,tabledate,competionID)
@@ -32,7 +32,7 @@ order by score desc;"""
             if Home == 1:
                self.string=self.string.replace("where","where HomeTeamName=team and ") 
             else:
-               self.string=self.string.replace("where","where AwayTeamName=team and ") 
-        self.string=self.string.replace('DateGoesHere',str(tabledate)[:10]) 
+               self.string=self.string.replace("where HomeTeamName=team and ","where AwayTeamName=team and ") 
+        self.string=self.string.replace('DateGoesHere',str(tabledate)[:10].replace('-',''))
         self.string=self.string.replace('CompetitionIDGoesHere',str(competionID)) 
             

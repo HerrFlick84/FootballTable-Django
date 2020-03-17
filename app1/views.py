@@ -30,7 +30,7 @@ def startpage(request):
             home=open(filename,encoding="utf-8")
             home=json.load(home)
             home=home["standings"][0]['table']
-            inst=country(file,home)
+
             standings.append(country(file,home))
              #print(home.read())
     #home = APIcall.getresponse("https://api.football-data.org/v2/competitions")
@@ -54,9 +54,9 @@ def startpage(request):
 
 
 def UpdateResults(request):
-    database_name = settings.DATABASES['default']['NAME']
-    database_url = 'sqlite:///{}'.format(database_name)
-    engine = sa.create_engine(database_url, echo=False)
+    # database_name = settings.DATABASES['default']['NAME']
+    # database_url = 'sqlite:///{}'.format(database_name)
+    # engine = sa.create_engine(database_url, echo=False)
     list=[]
     headers = {
       'X-Auth-Token': 'adfc68b0479c470d94cb1c0ff2c0f9eb'
@@ -72,7 +72,9 @@ def UpdateResults(request):
 
         
         for game in home["matches"]:
+            
             Date=datetime.strptime(game['utcDate'],"%Y-%m-%dT%H:%M:%SZ")
+            Date  = str(Date)[:10].replace('-','')
             GameID=game['id']
             HomeTeamID = game['homeTeam']['id']
             HomeTeamName = game['homeTeam']['name']
@@ -95,7 +97,7 @@ def TeamGames(request):
     games={}
     cursor  = connection.cursor()
     #query = ''' SELECT name FROM sqlite_master WHERE type='table' ORDER BY name ''';
-    query = ''' SELECT * FROM app1_result Result where HomeTeamID='''+TeamID + ''' OR AwayTeamID='''+TeamID + ''' ORDER by date desc''';
+    query = ''' SELECT * FROM app1_result Result where HomeTeamID='''+TeamID + ''' OR AwayTeamID='''+TeamID + ''' ORDER by date desc'''
 #    query='''select 
 #    Team, 
 #    count(*) GamesPlayed, 
@@ -121,7 +123,7 @@ def TeamGames(request):
 
     resp = cursor.fetchall()
     #prepare data for template
-    columns = [col[0] for col in cursor.description]
+    #columns = [col[0] for col in cursor.description]
     
     for row in resp:
         listed = list(row)
@@ -179,7 +181,7 @@ order by score desc;--, goal_diff desc;'''
     resp = cursor.fetchall()
     
     #prepare data for template
-    columns = [col[0] for col in cursor.description]
+    #columns = [col[0] for col in cursor.description]
     i=1
     for row in resp:
         Listed = list(row)
@@ -198,3 +200,45 @@ order by score desc;--, goal_diff desc;'''
     return render(request,'TabbedStandings.html',{'teams':teams})
 def Boot(request):
     return render(request,'Boot.html')
+def Standingssingle(request):
+    from .utils import query
+    #GET data from DB
+    CompetitionID='2014'
+    Context = []
+    cursor  = connection.cursor()
+    query =query.MSSQL()
+    j=0
+    while j<3:
+        #Home Away Total condition
+
+        query.defineparams(False,j,datetime.today(),CompetitionID)
+        print(query.string)
+        
+        cursor.execute(query.string)
+
+        resp = cursor.fetchall()
+        #prepare data for template
+        #return HttpResponse(query.string)
+        i=1
+        teams={}
+        for row in resp:
+            Listed = list(row)
+            teams[i]={
+                'team':Listed[0],
+                'GamesPlayed':Listed[1],
+                'wins':Listed[2],
+                'lost':Listed[3],
+                'draws':Listed[4],
+                'goalsfor':Listed[5],
+                'goalsagainst':Listed[6],
+                'score':Listed[7]
+                }
+            i+=1
+        #print(teams[1]['team']+" " +str(teams[1]['score']))
+        Context.append(teams)
+        j=j+1
+        
+    #for key in Context:
+
+        #print(key[1]['score'])
+    return render(request,'TabbedStandings.html',{'Context':Context})
